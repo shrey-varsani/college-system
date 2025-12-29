@@ -1,16 +1,168 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import {
+  GraduationCap,
+  Menu,
+  Mail,
+  BookOpen,
+  MoreHorizontal
+} from "lucide-react";
+
+import {
+  statsData,
+  initialStudents,
+  facultyData,
+  coursesData
+} from "./data/mockData";
+
+import "./index.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [activeSection, setActiveSection] = useState("dashboard");
+  const [students] = useState(initialStudents);
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
-    <>
-      <p className='bg-blue-600 text-black text-3xl p-16 mt-16 flex justify-center items-center font-semibold underline'>Hellow there</p>
-    </>
-  )
+    <div className="flex h-screen bg-slate-50 overflow-hidden">
+
+      {/* Sidebar */}
+      <aside
+        className={`fixed lg:static inset-y-0 left-0 w-64 bg-slate-900 text-white z-40
+        transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+        transition-transform lg:translate-x-0`}
+      >
+        <div className="p-6 flex items-center gap-3">
+          <div className="p-2 bg-blue-600 rounded-lg">
+            <GraduationCap size={24} />
+          </div>
+          <h1 className="text-xl font-bold">EduMaster</h1>
+        </div>
+
+        <nav className="mt-6 space-y-2 px-3">
+          <button
+            onClick={() => setActiveSection("dashboard")}
+            className="w-full flex gap-3 p-3 rounded-lg hover:bg-slate-700"
+          >
+            <GraduationCap size={18} /> Dashboard
+          </button>
+
+          <button
+            onClick={() => setActiveSection("students")}
+            className="w-full flex gap-3 p-3 rounded-lg hover:bg-slate-700"
+          >
+            <Mail size={18} /> Students
+          </button>
+
+          <button
+            onClick={() => setActiveSection("faculty")}
+            className="w-full flex gap-3 p-3 rounded-lg hover:bg-slate-700"
+          >
+            <GraduationCap size={18} /> Faculty
+          </button>
+
+          <button
+            onClick={() => setActiveSection("courses")}
+            className="w-full flex gap-3 p-3 rounded-lg hover:bg-slate-700"
+          >
+            <BookOpen size={18} /> Courses
+          </button>
+        </nav>
+      </aside>
+
+      {/* Main */}
+      <div className="flex-1 flex flex-col">
+        <header className="h-16 bg-white border-b flex items-center px-4">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="lg:hidden p-2"
+          >
+            <Menu />
+          </button>
+          <h2 className="ml-4 font-semibold capitalize">
+            {activeSection}
+          </h2>
+        </header>
+
+        <main className="flex-1 overflow-y-auto p-8">
+
+          {/* DASHBOARD */}
+          {activeSection === "dashboard" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {statsData.map((stat, i) => (
+                <div key={i} className="bg-white p-6 rounded-xl shadow">
+                  <p className="text-sm text-slate-500">{stat.title}</p>
+                  <h3 className="text-2xl font-bold mt-2">{stat.value}</h3>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* STUDENTS */}
+          {activeSection === "students" && (
+            <div className="bg-white rounded-xl shadow">
+              <div className="p-6 border-b">
+                <input
+                  placeholder="Search students..."
+                  className="border px-3 py-2 rounded-lg w-64"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+
+              <table className="w-full">
+                <tbody>
+                  {students
+                    .filter(s =>
+                      s.name.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+                    .map(s => (
+                      <tr key={s.id} className="border-b">
+                        <td className="p-4">{s.name}</td>
+                        <td className="p-4">{s.department}</td>
+                        <td className="p-4">{s.year}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* FACULTY */}
+          {activeSection === "faculty" && (
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {facultyData.map(f => (
+                <div key={f.id} className="bg-white p-6 rounded-xl shadow">
+                  <h3 className="font-bold">{f.name}</h3>
+                  <p className="text-sm text-slate-500">{f.department}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* COURSES — THIS IS WHERE IT WAS BREAKING */}
+          {activeSection === "courses" && (
+            <div className="space-y-4">
+              {coursesData.map(course => (
+                <div
+                  key={course.id}
+                  className="bg-white p-6 rounded-xl shadow flex justify-between"
+                >
+                  <div>
+                    <h3 className="font-bold text-lg">{course.name}</h3>
+                    <p className="text-sm text-slate-500">
+                      {course.code} — {course.instructor}
+                    </p>
+                  </div>
+                  <MoreHorizontal />
+                </div>
+              ))}
+            </div>
+          )}
+
+        </main>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
