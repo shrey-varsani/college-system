@@ -4,7 +4,8 @@ import {
   Menu,
   Mail,
   BookOpen,
-  MoreHorizontal
+  MoreHorizontal,
+  Sidebar
 } from "lucide-react";
 
 import {
@@ -40,28 +41,40 @@ function App() {
 
         <nav className="mt-6 space-y-2 px-3">
           <button
-            onClick={() => setActiveSection("dashboard")}
+            onClick={() => {
+              setActiveSection("dashboard");
+              if (window.innerWidth < 1024) setSidebarOpen(false);
+            }}
             className="w-full flex gap-3 p-3 rounded-lg hover:bg-slate-700"
           >
             <GraduationCap size={18} /> Dashboard
           </button>
 
           <button
-            onClick={() => setActiveSection("students")}
+            onClick={() => {
+              setActiveSection("students");
+              if(window.innerWidth < 1024) setSidebarOpen(false);
+            }}
             className="w-full flex gap-3 p-3 rounded-lg hover:bg-slate-700"
           >
             <Mail size={18} /> Students
           </button>
 
           <button
-            onClick={() => setActiveSection("faculty")}
+            onClick={() => {
+              setActiveSection("faculty");
+              if(window.innerWidth < 1024) setSidebarOpen(false);
+            }}
             className="w-full flex gap-3 p-3 rounded-lg hover:bg-slate-700"
           >
             <GraduationCap size={18} /> Faculty
           </button>
 
           <button
-            onClick={() => setActiveSection("courses")}
+            onClick={() => {
+              setActiveSection("courses");
+              if (window.innerWidth < 1024) setSidebarOpen(false);
+            }}
             className="w-full flex gap-3 p-3 rounded-lg hover:bg-slate-700"
           >
             <BookOpen size={18} /> Courses
