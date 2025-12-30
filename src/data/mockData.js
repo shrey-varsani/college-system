@@ -7,17 +7,17 @@ export const initialStudents = [
 ];
 
 export const facultyData = [
-  { id: 1, name: "Bhavin patel", role: "Professor", department: "Computer Engineering", subject: "Python For data science", email: "r.smith@college.edu" },
-  { id: 2, name: "Avni Dave", role: "Assoc. Professor", department: "Computer Engineering", subject: "Software Engineering", email: "l.wong@college.edu" },
-  { id: 3, name: "Nakul Dave", role: "Assoc. Professor", department: "Computer Engineering", subject: "Computer Networks", email: "a.turing@college.edu" },
-  { id: 4, name: "Kajal Patel", role: "Head of Dept.", department: "Computer Engineering", subject: "Database Management System", email: "Kajal@vgece.ac.in"}
+  { id: 1, name: "Bhavin patel", role: "Professor", department: "Computer Engineering", subject: "Python For data science", email: "Bhavin56@college.edu" },
+  { id: 2, name: "Avni Dave", role: "Assoc. Professor", department: "Computer Engineering", subject: "Software Engineering", email: "AvnDave@college.edu" },
+  { id: 3, name: "Nakul Dave", role: "Assoc. Professor", department: "Computer Engineering", subject: "Computer Networks", email: "NakulDave90@college.edu" },
+  { id: 4, name: "Kajal Patel", role: "Head of Dept.", department: "Computer Engineering", subject: "Database Management System", email: "KajalPtl@vgece.ac.in"}
 ];
 
 export const coursesData = [
-  { id: 1, code: "CS301", name: "Data Structures & Algorithms", credits: 4, instructor: "Dr. Robert Smith", students: 120 },
-  { id: 2, code: "MA201", name: "Advanced Calculus", credits: 3, instructor: "Prof. Lisa Wong", students: 85 },
-  { id: 3, code: "PH101", name: "Physics for Engineers", credits: 4, instructor: "Dr. Albert E.", students: 150 },
-  { id: 4, code: "CS405", name: "Artificial Intelligence", credits: 3, instructor: "Dr. Alan Turing", students: 60 },
+  { id: 1, code: "3110018", name: "Data Structures & Algorithms", credits: 4, instructor: "Kajal patel", students: 120 },
+  { id: 2, code: "3110008", name: "Advanced Java", credits: 3, instructor: "Karan Bhatt", students: 85 },
+  { id: 3, code: "3110005", name: "Android Development", credits: 4, instructor: "Bhavin Patel", students: 150 },
+  { id: 4, code: "3110006", name: "Artificial Intelligence", credits: 3, instructor: "Vinod Thummar", students: 60 },
 ];
 
 export const statsData = [
