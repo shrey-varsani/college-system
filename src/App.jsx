@@ -20,8 +20,31 @@ import "./index.css";
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeSection, setActiveSection] = useState("dashboard");
-  const [students] = useState(initialStudents);
+  const [students, setStudents] = useState(initialStudents);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+  const [newStudent, setNewStudent] = useState({
+      name: "",
+      department: "",
+      year: ""
+  });
+
+  const addStudent = (e) => {
+    e.preventDefault();
+
+    setStudents([
+      {
+        id: students.length + 1,
+        ...newStudent
+      },
+      ...students
+    ]);
+
+     setNewStudent({ name: "", department: "", year: "" });
+     setShowModal(false);
+  }
+
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
@@ -113,13 +136,20 @@ function App() {
           {/* STUDENTS */}
           {activeSection === "students" && (
             <div className="bg-white rounded-xl shadow">
-              <div className="p-6 border-b">
+              <div className="p-6 border-b flex justify-between">
                 <input
                   placeholder="Search students..."
                   className="border px-3 py-2 rounded-lg w-64"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
+
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+                > 
+                Add Student
+                </button>
               </div>
 
               <table className="w-full">
@@ -137,6 +167,66 @@ function App() {
                     ))}
                 </tbody>
               </table>
+
+              {showModal && (
+  <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+                onClick={() => setShowModal(false)}
+  >
+    <div className="bg-white p-6 rounded-xl w-96" onClick={(e) => e.stopPropagation()}>
+      <h3 className="font-bold text-lg mb-4">Add Student</h3>
+
+      <form onSubmit={addStudent} className="space-y-4">
+        <input
+          required
+          placeholder="Name"
+          className="border px-3 py-2 w-full rounded-lg"
+          value={newStudent.name}
+          onChange={(e) =>
+            setNewStudent({ ...newStudent, name: e.target.value })
+          }
+        />
+
+        <input
+          required
+          placeholder="Department"
+          className="border px-3 py-2 w-full rounded-lg"
+          value={newStudent.department}
+          onChange={(e) =>
+            setNewStudent({ ...newStudent, department: e.target.value })
+          }
+        />
+
+        <input
+          required
+          placeholder="Year"
+          className="border px-3 py-2 w-full rounded-lg"
+          value={newStudent.year}
+          onChange={(e) =>
+            setNewStudent({ ...newStudent, year: e.target.value })
+          }
+        />
+
+        <div className="flex justify-end gap-3">
+          <button
+            type="button"
+            onClick={() => setShowModal(false)}
+            className="px-4 py-2 border rounded-lg"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
             </div>
           )}
 
